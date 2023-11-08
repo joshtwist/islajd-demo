@@ -1,0 +1,63 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "version": "1.0.0",
+    "title": "My Zuplo API",
+    "description": "Hello Islajd, how is your day going - [example](https://example.com) - ![image](https://media0.giphy.com/media/v1.Y2lkPTc5MGI3NjExbndjNWhsc29uOHFtZ2o1Y25taXc2eGRuaGt0Nzhkd3JyeWRkY29peiZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/26hisBwYVss7iyRB6/giphy.gif)"
+  },
+  "paths": {
+    "/v1/todos": {
+      "x-zuplo-path": {
+        "pathMode": "open-api"
+      },
+      "get": {
+        "summary": "Get all todos",
+        "description": "Lorem ipsum dolor sit amet, **consectetur adipiscing** elit, sed do `eiusmod tempor` incididunt ut labore et dolore magna aliqua.",
+        "x-zuplo-route": {
+          "corsPolicy": "none",
+          "handler": {
+            "export": "urlRewriteHandler",
+            "module": "$import(@zuplo/runtime)",
+            "options": {
+              "rewritePattern": "https://8de5b188ac09497689281b8c7ce70fca.api.mockbin.io/"
+            }
+          },
+          "policies": {
+            "inbound": [
+              "api-key-inbound",
+              "rbac",
+              "cond-rate-limit",
+              "custom-code-inbound"
+            ]
+          }
+        },
+        "operationId": "016d106c-e55b-4db5-846d-3943c06dcc70"
+      }
+    },
+    "/": {
+      "x-zuplo-path": {
+        "pathMode": "open-api"
+      },
+      "get": {
+        "summary": "Redirect to docs",
+        "description": "Lorem ipsum dolor sit amet, **consectetur adipiscing** elit, sed do `eiusmod tempor` incididunt ut labore et dolore magna aliqua.",
+        "x-zuplo-route": {
+          "corsPolicy": "none",
+          "handler": {
+            "export": "redirectHandler",
+            "module": "$import(@zuplo/runtime)",
+            "options": {
+              "location": "/docs",
+              "status": 301
+            }
+          },
+          "policies": {
+            "inbound": []
+          }
+        },
+        "operationId": "9404567a-245b-4521-97af-1f7b38c4620c",
+        "x-internal": true
+      }
+    }
+  }
+}

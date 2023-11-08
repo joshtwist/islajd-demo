@@ -1,0 +1,55 @@
+{
+  "policies": [
+    {
+      "handler": {
+        "export": "ApiKeyInboundPolicy",
+        "module": "$import(@zuplo/runtime)",
+        "options": {
+          "allowUnauthenticatedRequests": false
+        }
+      },
+      "name": "api-key-inbound",
+      "policyType": "api-key-inbound"
+    },
+    {
+      "handler": {
+        "export": "default",
+        "module": "$import(./modules/rbac)",
+        "options": {
+          "role": "basic"
+        }
+      },
+      "name": "rbac",
+      "policyType": "custom-code-inbound"
+    },
+    {
+      "handler": {
+        "export": "RateLimitInboundPolicy",
+        "module": "$import(@zuplo/runtime)",
+        "options": {
+          "rateLimitBy": "ip",
+          "requestsAllowed": 1,
+          "timeWindowMinutes": 1
+        }
+      },
+      "name": "rate-limit-foo",
+      "policyType": "rate-limit-inbound"
+    },
+    {
+      "handler": {
+        "export": "default",
+        "module": "$import(./modules/cond-rate-limit)"
+      },
+      "name": "cond-rate-limit",
+      "policyType": "custom-code-inbound"
+    },
+    {
+      "handler": {
+        "export": "default",
+        "module": "$import(./modules/add-fields-to-headers)"
+      },
+      "name": "custom-code-inbound",
+      "policyType": "custom-code-inbound"
+    }
+  ]
+}
